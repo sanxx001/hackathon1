@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FoodShare AI &mdash; Save Food. Share Hope.</title>
+  <meta name="description" content="College Hackathon Prototype connecting surplus food donors with community shelters and NGOs using intelligent rule-based matching.">
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       1. TOP DEMO NOTICE BANNER (Hackathon Presentation Notice)
+       ========================================================================= -->
+  <aside class="hackathon-banner" aria-label="Hackathon Demo Notice">
+    <div class="banner-content">
+      <span class="hackathon-pill">Hackathon Prototype</span>
+      <span>
+        <strong>FoodShare AI Demonstration:</strong> All listings and charities below are simulated test data. No paid APIs or databases required.
+      </span>
+      <div style="display: inline-flex; gap: 0.5rem; margin-left: 0.5rem;">
+        <button id="quickSampleBtn" class="btn btn-sm" style="background: rgba(255,255,255,0.25); color: #ffffff; padding: 0.2rem 0.6rem; border: none;" title="Inject an urgent surplus batch expiring in 2 hours">
+          ⚡ + Add Urgent Test Batch
+        </button>
+        <button id="resetDemoBtnTop" class="btn btn-sm" style="background: #ffffff; color: var(--primary-800); padding: 0.2rem 0.6rem; border: none;" title="Reset all data back to original test scenarios">
+          ↺ Reset Demo Data
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- =========================================================================
+       2. NAVIGATION BAR
+       ========================================================================= -->
+  <header class="navbar">
+    <div class="container nav-wrapper">
+      <a href="#" class="brand" aria-label="FoodShare AI Home">
+        <div class="brand-icon" aria-hidden="true">
+          <!-- FoodShare Leaf / Heart Icon -->
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21a9 9 0 0 0 9-9c0-4.97-4.03-9-9-9-4.97 0-9 4.03-9 9 0 3.36 1.84 6.29 4.56 7.81"/>
+            <path d="M12 3v9l4 4"/>
+            <path d="M17 8c1.5 1.5 2 4 1 6"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>FoodShare AI</h1>
+          <span>Save Food. Share Hope.</span>
+        </div>
+      </a>
+
+      <!-- Desktop & Mobile Navigation Links -->
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links" id="navMenu">
+          <li><a href="#dashboard" class="nav-link">Dashboard</a></li>
+          <li><a href="#available-food" class="nav-link">Available Food</a></li>
+          <li><a href="#smart-matching" class="nav-link">Smart Matching</a></li>
+          <li><a href="#donate-food" class="nav-link">List Surplus</a></li>
+          <li><a href="#status-tracking" class="nav-link">Lifecycle Tracker</a></li>
+        </ul>
+      </nav>
+
+      <!-- Action Button & Hamburger Toggle -->
+      <div class="nav-actions">
+        <a href="#donate-food" class="btn btn-primary btn-sm">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          + Donate Surplus
+        </a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- =======================================================================
+         3. HERO SECTION (Problem & Solution)
+         ======================================================================= -->
+    <section class="hero-section" id="hero">
+      <div class="container hero-grid">
+        <div class="hero-text-block">
+          <div class="hero-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            Zero Food Waste &bull; College Hackathon Edition
+          </div>
+          <h2 class="hero-title">
+            Connecting <span>Surplus Food</span> With Nearby Shelters Before Time Runs Out.
+          </h2>
+          <p class="hero-subtitle">
+            FoodShare AI bridges the gap between commercial kitchens, event caterers, bakeries, and community organizations. List surplus food in under 60 seconds and request timely pickups before edible meals go to waste.
+          </p>
+          <div class="hero-actions">
+            <a href="#available-food" class="btn btn-primary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              Find Available Food
+            </a>
+            <a href="#donate-food" class="btn btn-secondary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+              List Surplus Food
+            </a>
+            <a href="#smart-matching" class="btn btn-outline">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+              Smart Matcher
+            </a>
+          </div>
+
+          <!-- Food Safety & Hygiene Note -->
+          <div class="safety-callout">
+            <strong>🛡️ Food Safety & Transparency Notice:</strong> FoodShare AI does not claim automated food safety verification. Food donors declare hygiene compliance and proper temperature control upon listing; community recipients inspect packaging upon collection.
+          </div>
+        </div>
+
+        <!-- Problem vs Solution Comparison Box -->
+        <div class="problem-solution-box" aria-label="Problem and Solution Overview">
+          <div class="ps-item ps-problem">
+            <div class="ps-icon" aria-hidden="true">⚠️</div>
+            <div class="ps-text">
+              <h3>The Challenge</h3>
+              <p>
+                Restaurants, caterers, and grocers frequently discard quality edible food because they lack immediate channels to notify local soup kitchens and shelters before the food passes its safe consumption window.
+              </p>
+            </div>
+          </div>
+
+          <hr style="border: none; border-top: 1px solid var(--border-light); margin: 0;">
+
+          <div class="ps-item ps-solution">
+            <div class="ps-icon" aria-hidden="true">🌱</div>
+            <div class="ps-text">
+              <h3>Our Solution</h3>
+              <p>
+                A decentralized, zero-barrier platform enabling donors to publish surplus batches in seconds, pairing them with nearby verified charities using transparent, distance-and-urgency matching rules.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         4. DASHBOARD METRICS SECTION
+         ======================================================================= -->
+    <section class="dashboard-section" id="dashboard" aria-label="Platform Dashboard">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Live Demonstration Dashboard</h2>
+            <p class="section-desc">Dynamic platform metrics calculated directly from active browser storage records.</p>
+          </div>
+          <button id="footerResetBtn" class="btn btn-secondary btn-sm" title="Restore pristine demo items">
+            ↺ Restore Sample Data
+          </button>
+        </div>
+
+        <div class="metrics-grid">
+          <!-- Total Listings -->
+          <div class="metric-card">
+            <div class="metric-icon-wrap total" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            </div>
+            <div class="metric-data">
+              <h4 id="statTotalListings">0</h4>
+              <p>Total Surplus Listings</p>
+            </div>
+          </div>
+
+          <!-- Available for Pickup -->
+          <div class="metric-card">
+            <div class="metric-icon-wrap available" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="metric-data">
+              <h4 id="statAvailable" style="color: var(--primary-700);">0</h4>
+              <p>Available For Pickup</p>
+            </div>
+          </div>
+
+          <!-- Requests in Progress -->
+          <div class="metric-card">
+            <div class="metric-icon-wrap requested" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="metric-data">
+              <h4 id="statRequested" style="color: var(--accent-amber);">0</h4>
+              <p>Active Requests</p>
+            </div>
+          </div>
+
+          <!-- Delivered Safely -->
+          <div class="metric-card">
+            <div class="metric-icon-wrap delivered" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div class="metric-data">
+              <h4 id="statDelivered" style="color: var(--accent-emerald);">0</h4>
+              <p>Delivered Safely</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         5. AVAILABLE FOOD MARKETPLACE & FILTER TOOLBAR
+         ======================================================================= -->
+    <section class="available-section" id="available-food">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Available Surplus Food</h2>
+            <p class="section-desc">Browse community donations ready for claim and pickup by local non-profits.</p>
+          </div>
+        </div>
+
+        <!-- Filter & Search Toolbar -->
+        <div class="filter-toolbar" role="search" aria-label="Filter food donations">
+          <div class="filter-row">
+            <!-- Search Keyword -->
+            <div class="search-input-wrap">
+              <span class="search-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              </span>
+              <input type="text" id="searchInput" class="search-input" placeholder="Search food name, donor, zone, or notes..." aria-label="Search food listings">
+              <button id="clearSearchBtn" class="clear-search-btn" aria-label="Clear search input">&times;</button>
+            </div>
+
+            <!-- Food Category Filter -->
+            <select id="categoryFilter" class="select-filter" aria-label="Filter by Food Category">
+              <option value="ALL">All Food Categories</option>
+              <option value="Cooked Meals">Cooked Meals</option>
+              <option value="Bakery & Bread">Bakery & Bread</option>
+              <option value="Fresh Produce">Fresh Produce</option>
+              <option value="Packaged & Canned">Packaged & Canned</option>
+              <option value="Dairy & Chilled">Dairy & Chilled</option>
+              <option value="Beverages">Beverages</option>
+            </select>
+
+            <!-- Location Zone Filter -->
+            <select id="locationFilter" class="select-filter" aria-label="Filter by Location Zone">
+              <option value="ALL">All Location Zones</option>
+              <option value="Downtown Metro">Downtown Metro</option>
+              <option value="West End District">West End District</option>
+              <option value="Northside Hub">Northside Hub</option>
+              <option value="East Industrial">East Industrial</option>
+              <option value="University Area">University Area</option>
+              <option value="South Quarter">South Quarter</option>
+            </select>
+
+            <!-- Status Filter -->
+            <select id="statusFilter" class="select-filter" aria-label="Filter by Status">
+              <option value="ALL">All Statuses</option>
+              <option value="Available">Available Only</option>
+              <option value="Requested">Requested</option>
+              <option value="Accepted">Accepted</option>
+              <option value="Collected">Collected</option>
+              <option value="Delivered">Delivered</option>
+              <option value="Expired">Expired (Safety Locked)</option>
+            </select>
+
+            <!-- Reset Filters -->
+            <button id="resetFiltersBtn" class="btn btn-secondary btn-sm" title="Clear all active filters">
+              Reset Filters
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter Count Meta -->
+        <div class="filter-meta-bar">
+          <span id="filteredCountText">Loading available listings...</span>
+          <span>⚡ Listings nearing their pickup deadline are highlighted in amber.</span>
+        </div>
+
+        <!-- Donation Cards Grid -->
+        <div class="food-grid" id="donationsGrid" aria-live="polite">
+          <!-- Populated dynamically via script.js -->
+        </div>
+
+        <!-- Empty State (Shown when no cards match) -->
+        <div class="empty-state" id="noResultsState" style="display: none;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            <line x1="8" y1="11" x2="14" y2="11"></line>
+          </svg>
+          <h3>No Matching Donations Found</h3>
+          <p>No food listings match your current search keywords or filters.</p>
+          <button class="btn btn-outline btn-sm" id="emptyStateResetBtn">Clear All Filters</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         6. SMART MATCHING SECTION (Deterministic Rule-Based AI Simulation)
+         ======================================================================= -->
+    <section class="smart-match-section" id="smart-matching">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <div class="hero-tag" style="margin-bottom: 0.5rem; background: #e0f2fe; color: #0369a1;">
+              ⚡ Algorithmic Dispatch Engine
+            </div>
+            <h2 class="section-title">Smart Donation Matcher</h2>
+            <p class="section-desc">
+              Simulated matching engine that ranks available surplus food for your charity using transparent distance, quantity, and deadline urgency heuristics.
+            </p>
+          </div>
+        </div>
+
+        <div class="match-grid-layout">
+          <!-- NGO Profile Criteria Form -->
+          <div class="match-controls-card">
+            <h3>Receiving Charity Criteria</h3>
+            <p>Input your organization's location and current meal capacity to find optimal matches.</p>
+
+            <form id="smartMatchForm">
+              <div class="form-field">
+                <label for="ngoLocation" class="form-label">Charity Zone / Hub</label>
+                <select id="ngoLocation" class="form-select">
+                  <option value="Downtown Metro" selected>Downtown Metro</option>
+                  <option value="West End District">West End District</option>
+                  <option value="Northside Hub">Northside Hub</option>
+                  <option value="East Industrial">East Industrial</option>
+                  <option value="University Area">University Area</option>
+                  <option value="South Quarter">South Quarter</option>
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label for="ngoNeedQuantity" class="form-label">Needed Portions / Capacity</label>
+                <input type="number" id="ngoNeedQuantity" class="form-input" min="1" max="500" value="30">
+              </div>
+
+              <div class="form-field">
+                <label for="ngoCategoryPref" class="form-label">Category Preference (Optional)</label>
+                <select id="ngoCategoryPref" class="form-select">
+                  <option value="ANY">Any Category</option>
+                  <option value="Cooked Meals">Cooked Meals (Immediate Feeding)</option>
+                  <option value="Bakery & Bread">Bakery & Bread</option>
+                  <option value="Fresh Produce">Fresh Produce</option>
+                  <option value="Packaged & Canned">Packaged & Canned</option>
+                </select>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width: 100%;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                Calculate Best Matches
+              </button>
+            </form>
+
+            <!-- Algorithm Explanation Card -->
+            <div class="algorithm-explainer">
+              <strong>How Smart Ranking Works:</strong>
+              <ul>
+                <li><strong>Proximity (40 pts):</strong> Prioritizes exact zone match to cut transit time.</li>
+                <li><strong>Portion Fit (35 pts):</strong> Matches batch size against charity meal capacity.</li>
+                <li><strong>Urgency (25 pts):</strong> Items near expiry rank highest so they get rescued first!</li>
+                <li><strong>Category Bonus (+10 pts):</strong> Boosts requested meal type.</li>
+              </ul>
+              <small style="color: #64748b; display: block; margin-top: 0.5rem;">
+                *Deterministic simulation. Does not invoke paid AI APIs.
+              </small>
+            </div>
+          </div>
+
+          <!-- Matching Output Cards -->
+          <div class="match-results-container" id="smartMatchResults" aria-live="polite">
+            <!-- Populated via script.js -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         7. DONATION FORM SECTION
+         ======================================================================= -->
+    <section class="donation-form-section" id="donate-food">
+      <div class="container">
+        <div class="section-header" style="justify-content: center; text-align: center;">
+          <div>
+            <h2 class="section-title">List Surplus Food for Rescue</h2>
+            <p class="section-desc">
+              Commercial kitchens, cafeterias, bakeries, and grocers can publish surplus food batches in under 60 seconds.
+            </p>
+          </div>
+        </div>
+
+        <div class="form-layout-box">
+          <form id="donationForm" novalidate>
+            <div class="form-group-grid">
+              <!-- Food Name -->
+              <div class="form-field full-width">
+                <label for="foodName" class="form-label">
+                  Food Item / Description <span class="required">*</span>
+                </label>
+                <input type="text" id="foodName" class="form-input" placeholder="e.g., 40 Portions of Steamed Rice & Veggie Curry" required>
+                <div class="field-error" id="foodNameError"></div>
+              </div>
+
+              <!-- Category -->
+              <div class="form-field">
+                <label for="foodCategory" class="form-label">
+                  Category <span class="required">*</span>
+                </label>
+                <select id="foodCategory" class="form-select" required>
+                  <option value="">Select a category...</option>
+                  <option value="Cooked Meals">Cooked Meals</option>
+                  <option value="Bakery & Bread">Bakery & Bread</option>
+                  <option value="Fresh Produce">Fresh Produce</option>
+                  <option value="Packaged & Canned">Packaged & Canned</option>
+                  <option value="Dairy & Chilled">Dairy & Chilled</option>
+                  <option value="Beverages">Beverages</option>
+                </select>
+                <div class="field-error" id="foodCategoryError"></div>
+              </div>
+
+              <!-- Quantity & Unit -->
+              <div class="form-field">
+                <label for="quantityVal" class="form-label">
+                  Quantity & Unit <span class="required">*</span>
+                </label>
+                <div style="display: flex; gap: 0.5rem;">
+                  <input type="number" id="quantityVal" class="form-input" placeholder="e.g., 40" min="1" step="1" style="flex: 1;" required>
+                  <select id="quantityUnit" class="form-select" style="flex: 1.2;">
+                    <option value="meals / portions">meals / portions</option>
+                    <option value="kg">kg</option>
+                    <option value="loaves">loaves</option>
+                    <option value="boxes">boxes</option>
+                    <option value="liters">liters</option>
+                  </select>
+                </div>
+                <div class="field-error" id="quantityValError"></div>
+              </div>
+
+              <!-- Storage Condition -->
+              <div class="form-field">
+                <label for="storageCondition" class="form-label">
+                  Storage & Handling Condition <span class="required">*</span>
+                </label>
+                <select id="storageCondition" class="form-select">
+                  <option value="Keep Warm (Above 60°C)">Keep Warm (Above 60°C)</option>
+                  <option value="Refrigerated (2°C - 4°C)">Refrigerated (2°C - 4°C)</option>
+                  <option value="Room Temperature / Dry">Room Temperature / Dry</option>
+                  <option value="Frozen (-18°C)">Frozen (-18°C)</option>
+                </select>
+              </div>
+
+              <!-- Preparation Time -->
+              <div class="form-field">
+                <label for="prepTime" class="form-label">
+                  Preparation / Pack Time <span class="required">*</span>
+                </label>
+                <input type="datetime-local" id="prepTime" class="form-input" required>
+                <div class="field-error" id="prepTimeError"></div>
+              </div>
+
+              <!-- Safe Pickup Deadline -->
+              <div class="form-field">
+                <label for="pickupDeadline" class="form-label">
+                  Safe Pickup Deadline <span class="required">*</span>
+                </label>
+                <input type="datetime-local" id="pickupDeadline" class="form-input" required>
+                <div class="field-error" id="pickupDeadlineError"></div>
+              </div>
+
+              <!-- Donor / Organization Name -->
+              <div class="form-field">
+                <label for="donorName" class="form-label">
+                  Donor / Kitchen Name <span class="required">*</span>
+                </label>
+                <input type="text" id="donorName" class="form-input" placeholder="e.g., Campus Center Dining" required>
+                <div class="field-error" id="donorNameError"></div>
+              </div>
+
+              <!-- Location Zone -->
+              <div class="form-field">
+                <label for="donorLocation" class="form-label">
+                  Location Zone <span class="required">*</span>
+                </label>
+                <select id="donorLocation" class="form-select" required>
+                  <option value="">Select zone...</option>
+                  <option value="Downtown Metro">Downtown Metro</option>
+                  <option value="West End District">West End District</option>
+                  <option value="Northside Hub">Northside Hub</option>
+                  <option value="East Industrial">East Industrial</option>
+                  <option value="University Area">University Area</option>
+                  <option value="South Quarter">South Quarter</option>
+                </select>
+                <div class="field-error" id="donorLocationError"></div>
+              </div>
+
+              <!-- Pickup Street / Dock Address -->
+              <div class="form-field">
+                <label for="donorAddress" class="form-label">Pickup Address / Bay (Optional)</label>
+                <input type="text" id="donorAddress" class="form-input" placeholder="e.g., Rear Service Bay 2, Gate C">
+              </div>
+
+              <!-- Allergen & Dietary Information -->
+              <div class="form-field full-width">
+                <label class="form-label">Allergen & Dietary Information</label>
+                <div class="diet-options-grid">
+                  <label class="checkbox-label">
+                    <input type="checkbox" name="dietTags" value="Vegetarian" checked>
+                    Vegetarian
+                  </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" name="dietTags" value="Vegan">
+                    Vegan
+                  </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" name="dietTags" value="Halal Friendly">
+                    Halal Friendly
+                  </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" name="dietTags" value="Nut-Free" checked>
+                    Nut-Free
+                  </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" name="dietTags" value="Dairy-Free">
+                    Dairy-Free
+                  </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" name="dietTags" value="Gluten-Free">
+                    Gluten-Free
+                  </label>
+                </div>
+              </div>
+
+              <!-- Special Handling Notes -->
+              <div class="form-field full-width">
+                <label for="specialNotes" class="form-label">Special Handling or Packaging Notes</label>
+                <textarea id="specialNotes" class="form-textarea" placeholder="e.g., Sealed in tamper-evident containers. Recipient must bring insulated transport boxes."></textarea>
+              </div>
+            </div>
+
+            <!-- Food Safety Declaration Checkbox -->
+            <div class="safety-agreement-card">
+              <h4>🛡️ Donor Freshness & Hygiene Declaration</h4>
+              <p>
+                By publishing this listing, you confirm that the surplus food has been prepared and stored in compliance with standard hygiene guidelines, has remained within safe temperature thresholds, and is edible and safe for human consumption before the specified deadline.
+              </p>
+              <label class="checkbox-label" style="background: transparent; border: none; padding: 0; font-weight: 600; color: var(--primary-900);">
+                <input type="checkbox" id="safetyCheck" required>
+                I confirm that this food is safe, edible, and packaged in hygienic containers.
+              </label>
+              <div class="field-error" id="safetyCheckError"></div>
+            </div>
+
+            <!-- Form Action Buttons -->
+            <div class="form-button-row">
+              <button type="button" class="btn btn-secondary" id="resetFormBtn">Clear Form</button>
+              <button type="submit" class="btn btn-primary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Publish Surplus Food
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         8. LIFECYCLE STATUS TRACKING TABLE
+         ======================================================================= -->
+    <section class="tracking-section" id="status-tracking">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Donation Lifecycle Tracker</h2>
+            <p class="section-desc">
+              Track donations through every operational stage: <em>Available &rarr; Requested &rarr; Accepted &rarr; Collected &rarr; Delivered</em> (or <em>Expired</em>).
+            </p>
+          </div>
+        </div>
+
+        <div class="table-responsive-wrapper">
+          <table class="data-table" aria-label="Donation Lifecycle Tracking Table">
+            <thead>
+              <tr>
+                <th>Food & Donor Details</th>
+                <th>Quantity</th>
+                <th>Zone</th>
+                <th>Pickup Deadline</th>
+                <th>Current Status</th>
+                <th>Claiming Organization</th>
+                <th>Workflow Actions</th>
+              </tr>
+            </thead>
+            <tbody id="trackingTableBody">
+              <!-- Dynamically populated via script.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================================================================
+       9. REQUEST FOOD MODAL DIALOG
+       ========================================================================= -->
+  <div class="modal-backdrop" id="requestModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="modalTitle">Request Food Donation</h3>
+        <button class="close-modal-btn" id="closeModalBtn" aria-label="Close request modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Selected Item Summary -->
+        <div class="modal-item-summary" id="modalItemSummary">
+          <!-- Populated dynamically via openRequestModal() -->
+        </div>
+
+        <form id="requestFoodForm" novalidate>
+          <input type="hidden" id="requestDonationId">
+
+          <div class="form-field">
+            <label for="reqOrgName" class="form-label">
+              Receiving Organization / Shelter Name <span class="required">*</span>
+            </label>
+            <input type="text" id="reqOrgName" class="form-input" placeholder="e.g., Hope Haven Shelter (Demo)" required>
+          </div>
+
+          <div class="form-field">
+            <label for="reqContactPerson" class="form-label">
+              Contact Person & Phone <span class="required">*</span>
+            </label>
+            <input type="text" id="reqContactPerson" class="form-input" placeholder="e.g., Sarah Jenkins &bull; (555) 019-2834" required>
+          </div>
+
+          <div class="form-field">
+            <label for="reqEstimatedPickup" class="form-label">
+              Estimated Pickup Time <span class="required">*</span>
+            </label>
+            <input type="datetime-local" id="reqEstimatedPickup" class="form-input" required>
+            <small style="font-size: 0.75rem; color: #64748b; margin-top: 0.25rem;">
+              Must be scheduled before the safe pickup deadline.
+            </small>
+          </div>
+
+          <div class="form-field">
+            <label for="reqTransportType" class="form-label">Pickup Transport Type</label>
+            <select id="reqTransportType" class="form-select">
+              <option value="Van with Cool Box">Van with Cool Box / Insulated Carrier</option>
+              <option value="Volunteer Car">Volunteer Car</option>
+              <option value="Cargo Bike / Walking Cart">Cargo Bike / Walking Cart</option>
+              <option value="Refrigerated Truck">Refrigerated Truck</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="reqPurpose" class="form-label">Intended Distribution Program</label>
+            <input type="text" id="reqPurpose" class="form-input" placeholder="e.g., Evening soup kitchen dinner &bull; 60 individuals">
+          </div>
+
+          <div class="modal-footer" style="padding-left: 0; padding-right: 0; padding-bottom: 0;">
+            <button type="button" class="btn btn-secondary" id="cancelRequestBtn">Cancel</button>
+            <button type="submit" class="btn btn-primary">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              Confirm Food Request
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       10. TOAST NOTIFICATION CONTAINER
+       ========================================================================= -->
+  <div class="toast-container" id="toastContainer" aria-live="assertive"></div>
+
+  <!-- =========================================================================
+       11. FOOTER
+       ========================================================================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h4>FoodShare AI</h4>
+          <p>
+            <em>Save Food. Share Hope.</em><br>
+            A lightweight, zero-cost hackathon web platform connecting food surplus with community need before edible meals expire. Built entirely with vanilla HTML, CSS, and JavaScript.
+          </p>
+        </div>
+
+        <div class="footer-links">
+          <h5>Quick Navigation</h5>
+          <ul>
+            <li><a href="#dashboard">Demonstration Metrics</a></li>
+            <li><a href="#available-food">Browse Surplus Food</a></li>
+            <li><a href="#smart-matching">Smart Match Engine</a></li>
+            <li><a href="#donate-food">Donate Surplus Food</a></li>
+            <li><a href="#status-tracking">Status Tracking Table</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h5>Demo Transparency</h5>
+          <p style="font-size: 0.8125rem; color: var(--slate-400); line-height: 1.5;">
+            &bull; All donors &amp; NGOs shown are simulated entities.<br>
+            &bull; Data is stored locally in your browser (LocalStorage).<br>
+            &bull; Transparent rule-based dispatch without external AI APIs.<br>
+            &bull; Automatic food safety lockout when deadlines expire.
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; 2026 FoodShare AI &bull; College Hackathon Prototype &bull; Vanilla Web Stack
+        </div>
+        <div>
+          <button onclick="resetDemoData()" class="btn btn-secondary btn-sm" style="background: rgba(255,255,255,0.1); color: #ffffff; border: 1px solid rgba(255,255,255,0.2);">
+            ↺ Reset Demo State
+          </button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Logic -->
+  <script src="script.js"></script>
+</body>
+</html>
